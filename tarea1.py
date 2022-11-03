@@ -4,9 +4,34 @@ class Acciones:
     def leer(self):
         pass
     
-    def listar(self):
-        pass
-    
+    def listar(self,tamaño_lista_libros,lista_libros):
+        print("\n|-------------------------|")
+        print("|---- LISTA DE LIBROS ----|")
+        print("|-------------------------|")
+
+        libro = {}
+        libros = []
+
+        for index,i in enumerate(range(tamaño_lista_libros),1):
+            libro["Id"]        = lista_libros[i][0]
+            libro["Título"]    = lista_libros[i][1]
+            libro["Género"]    = lista_libros[i][2]
+            libro["ISBN"]      = lista_libros[i][3]
+            libro["Editorial"] = lista_libros[i][4]
+            libro["Autor(es)"] = lista_libros[i][5]
+            
+            msj = f"Libro N° {index}"
+            print("\n-------------------------")
+            print(f"{msj:^25}")
+            print("-------------------------")
+
+            elementos = libro.items()
+            
+            for clave,valor in elementos:
+                print(f"{clave} = {valor}")
+            
+            libros.append(libro)
+
     def agregar(self):
         pass
 
@@ -47,33 +72,70 @@ class Libros(Acciones):
         self.autor_es = ()
 
     def registrar_libros(self):
-        print("---------------------------------------------------------------------------")
+        print("\n---------------------------------------------------------------------------")
         print("------------ BIENVENIDO A LA APLICACIÓN DE REGISTRO DE LIBROS -------------")
         print("---------------------------------------------------------------------------")
-        lista_libros=[]
+
+        lista_numero_autores = [] # LISTA DE TODOS LOS NÍMEROS DE AUTORES 
+
+        lista_libros = []
         tamaño_lista_libros = len(lista_libros)
         numero_de_libros = int(input("\n¿Cuántos libros deseas registrar?: "))
 
         for i in range(numero_de_libros):
+            print("\n|----------------------------------|")
+            print(f"|----- REGISTRO DE LIBRO N° {i+1} -----|")
+            print("|----------------------------------|")
+
             self.id = str(input("\nIngrese el ID del libro: "))
             self.titulo = str(input("Ingrese el TÍTULO del libro: "))
             self.genero = str(input("Ingrese el GÉNERO del libro: "))
             self.isbn = str(input("Ingrese el ISBN del libro: "))
             self.editorial = str(input("Ingrese la EDITORIAL del libro: "))
-            self.autor_es = str(input("Ingrese el AUTOR(ES) del libro: "))
+
+# ---------------------------------------------------------------------
+# ------------------------------ AUTORES ------------------------------
+# ---------------------------------------------------------------------
+            lista_autores = []
+            tamaño_lista_autores = len(lista_autores)
+            numero_de_autores = int(input(f'\n¿Cuántos autores tiene el libro "{self.titulo}"?: '))
+            print("---------------------------------------")
+           
+            # ---------------------------------------
+            # VALIDACION SIMPLE DE LA VARIABLE numero_de_autores
+            # ---------------------------------------
+            if numero_de_autores != 0:
+                lista_numero_autores.append(numero_de_autores)
+            while numero_de_autores == 0:
+                numero_de_autores = int(input(f"\nIngrese un número valido por favor: "))
+                print("---------------------------------------")
+            # --------------------------------------
+
+            for i in range(numero_de_autores):
+                lista_autores.append(str(input(f'Ingrese el AUTOR N° {i+1} del libro "{self.titulo}": ')))
+                tamaño_lista_autores += 1 
+            print("---------------------------------------")
+
+            self.autor_es = lista_autores
 
             lista_libros.append([self.id,self.titulo,self.genero,self.isbn,self.editorial,self.autor_es])
+
             tamaño_lista_libros += 1  
+# ---------------------------------------------------------------------
 
         input('\nPresiona "Enter" para continuar...')
         print("Loading...")
         time.sleep(1)
         print("Loading...")
         time.sleep(1)
-
-        print("\n------------ MENÚ DE OPCIONES ------------")
+        
         opcion = 0 
+
         while opcion != 11:
+            print("\n------------------------------------------------------------------")
+            print("------------------------ MENÚ DE OPCIONES ------------------------")
+            print("------------------------------------------------------------------")
+            
             print("\n(1) Leer archivo de disco duro (.txt o csv)")
             print("(2) Listar libros")
             print("(3) Agregar libro")
@@ -85,13 +147,24 @@ class Libros(Acciones):
             print("(9) Editar o actualizar datos de un libro")
             print("(10) Guardar libros en archivo de disco duro (.txt o csv)")
             print("(11) Salir")
-            opcion = int(input("\n¿Que opciónn elegiste?: "))
+            print("\n------------------------------------------------------------------")
+
+            opcion = int(input("\n¿Que opción elegiste?: "))
+
+            # ---------------------------------------
+            # VALIDACION SIMPLE DE LA VARIABLE opcion
+            # ---------------------------------------
+            while opcion == 0 or opcion >= 12:
+                opcion = int(input(f"\nIngrese un número valido por favor: "))
+                print("--------------------------------------")
+            # ---------------------------------------
+
             if opcion == 1:
                 time.sleep(1)
                 self.leer()
             elif opcion == 2:
                 time.sleep(1)
-                self.listar()
+                self.listar(tamaño_lista_libros,lista_libros)
             elif opcion == 3:
                 time.sleep(1)
                 self.agregar()
