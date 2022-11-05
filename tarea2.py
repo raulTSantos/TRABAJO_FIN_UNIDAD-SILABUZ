@@ -12,6 +12,23 @@ URL_POKEMON_SHAPE=f"{URL_PRINCIPAL}/pokemon-shape"
 URL_HABITAT=f"{URL_PRINCIPAL}/pokemon-habitat"
 URL_TYPE=f"{URL_PRINCIPAL}/type"
 
+def getResponse(path: str) -> str:
+    try:
+        rsp= requests.get(path)
+        data= rsp.json()
+        return data
+    except Exception as err:
+        return rsp.raise_for_status()
+
+def getPokemon(name: str) -> None:
+     rsp= requests.get("https://pokeapi.co/api/v2/pokemon/"+name)
+     data = rsp.json()
+     abilities = [ability['ability']['name'] for ability in data['abilities']]
+
+     print(f"Nombre: {data['name']}")
+     print(f"Habilidad: {','.join(abilities)}")
+     print(f"URL: {data['sprites']['front_default']}")
+     print("-------------------------------------------------------------------------------------------")
 
 def show_operations():
     print("\n------------ MENU DE OPCIONES ------------")
@@ -44,4 +61,3 @@ def presentacion():
     print("------------ BIENVENIDO A LA APLICACIÓN DE POKEMON-API -------------")
     print("---------------------------------------------------------------------------")
     show_operations()
-
