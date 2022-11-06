@@ -31,9 +31,64 @@ class Acciones:
                 print(f"{clave} = {valor}")
             
             libros.append(libro)
+ 
+    def agregar(self,tamaño_lista_libros,lista_libros):
+        print("\n|-------------------------|")
+        print("|---- AGREGAR LIBROS -----|")
+        print("|-------------------------|")
 
-    def agregar(self):
-        pass
+        lista_antigua_libros = lista_libros
+
+        lista_numero_autores = []
+
+        lista_nueva_libros = []
+        tamaño_lista_libros = len(lista_libros) # DIRECTAMENTE RECOGE LA LONGITUD DE LA lista_libros ANTIGUA
+        numero_de_libros = int(input("\n¿Cuántos libros deseas registrar?: "))
+
+        for i in range(numero_de_libros):
+            print("\n|----------------------------------|")
+            print(f"|----- REGISTRO DE LIBRO N° {i+1} -----|")
+            print("|----------------------------------|")
+
+            self.id = str(input("\nIngrese el ID del libro: "))
+            self.titulo = str(input("Ingrese el TÍTULO del libro: "))
+            self.genero = str(input("Ingrese el GÉNERO del libro: "))
+            self.isbn = str(input("Ingrese el ISBN del libro: "))
+            self.editorial = str(input("Ingrese la EDITORIAL del libro: "))
+
+# ---------------------------------------------------------------------
+# ------------------------------ AUTORES ------------------------------
+# ---------------------------------------------------------------------
+            lista_autores = []
+            tamaño_lista_autores = len(lista_autores)
+            numero_de_autores = int(input(f'\n¿Cuántos autores tiene el libro "{self.titulo}"?: '))
+            print("---------------------------------------")
+           
+            # ---------------------------------------
+            # VALIDACION SIMPLE DE LA VARIABLE numero_de_autores
+            # ---------------------------------------
+            if numero_de_autores != 0:
+                lista_numero_autores.append(numero_de_autores)
+            while numero_de_autores == 0:
+                numero_de_autores = int(input(f"\nIngrese un número valido por favor: "))
+                print("---------------------------------------")
+            # --------------------------------------
+
+            for i in range(numero_de_autores):
+                lista_autores.append(str(input(f'Ingrese el AUTOR N° {i+1} del libro "{self.titulo}": ')))
+                tamaño_lista_autores += 1 
+            print("---------------------------------------")
+
+            lista_nueva_libros.append([self.id,self.titulo,self.genero,self.isbn,self.editorial,self.autor_es])
+            
+            tamaño_lista_libros += 1
+
+        lista_libros = lista_antigua_libros + lista_nueva_libros
+
+        rpta = str(input("\n¿Desea visualizar todos los libros? (S/N): "))
+
+        if rpta.upper() == "S":
+            Acciones.listar(self,tamaño_lista_libros,lista_libros)
 
     def eliminar(self):
         pass
@@ -167,7 +222,7 @@ class Libros(Acciones):
                 self.listar(tamaño_lista_libros,lista_libros)
             elif opcion == 3:
                 time.sleep(1)
-                self.agregar()
+                self.agregar(tamaño_lista_libros,lista_libros) # AUMENTE ESTO tamaño_lista_libros,lista_libros
             elif opcion == 4:
                 time.sleep(1)
                 self.eliminar()
