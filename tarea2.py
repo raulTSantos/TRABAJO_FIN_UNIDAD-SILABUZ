@@ -53,6 +53,95 @@ def show_pokemons(lista: list[str]) -> None:
             print(f"POKEMON {index}")
             getPokemon(element)
 
+#Pinta nuevos encabezados
+def print_title(strn):
+    print("*"*len(strn))
+    print(strn)
+    print("*"*len(strn))
+
+#retorna una lista anidada a partir de los elemento de la lista original en fragmentos de 5
+def pagination(lista):
+    temp=[]
+    initial=0
+    while initial <len(lista):
+        temp.append(lista[initial:initial+5])
+        initial +=5
+    return temp
+
+
+#Permite pintar en consola los pokemones usando paginacion con un tamaño de 5 elementos
+def show_paginated(lista):
+    pages = pagination(lista)
+    total_page=len(pages)
+    current_page=1
+    if total_page >0:
+        while True:
+            if total_page != current_page:
+                if current_page <total_page:
+                    clear_console()
+                    print("********************************************************************************")
+                    show_pokemons(pages[current_page-1])
+                    print("********************************************************************************")     
+                    rpt=input(" Ingrese 'S' (Siguiente) o 'X' (Escapar): ").strip()
+                    if rpt.upper() == 'S':
+                        current_page +=1           
+                    else:
+                        break
+                    
+                if current_page <total_page and current_page >1:
+                    clear_console()
+                    print("********************************************************************************")
+                    show_pokemons(pages[current_page-1])
+                    print("********************************************************************************")       
+                    rpt=input("Ingrese 'A' (Anteriror),'S' (Siguiente) o 'X' (Escapar): ").strip()
+                    
+                    if rpt.upper() == 'A':
+                        current_page -=1
+                    if rpt.upper() == 'S':
+                        current_page +=1           
+                    else:
+                        print("Escapando de los resultados ....")
+                        break
+
+            elif total_page == current_page  and current_page >1:
+                clear_console()
+                print("********************************************************************************")
+                show_pokemons(pages[current_page-1])
+                print("********************************************************************************") 
+                rpt=input("Ingrese 'A' (Anteriror) o 'X' (Escapar): ").strip()      
+                if rpt.upper() == 'A':
+                    current_page -=1
+                else:
+                    print("Escapando de los resultados ....")
+                    break
+            else:
+                clear_console()
+                print("********************************************************************************")
+                show_pokemons(pages[current_page-1])
+                print("********************************************************************************") 
+                break
+
+#retorna true o false si el ususario quiere continuar
+def execute_app():  
+    response = input("¿Quieres regresar al menu de opciones? (si o no): ")
+    response = response.upper()
+    if response == "SI":
+        clear_console()
+        return True
+    else: 
+        clear_console()
+        return False
+
+#Funcion que ejecuta el desarrollo del programa
+def run_app():
+    clear_console()
+    presentacion()
+    while execute_app():     
+        show_operations()
+    else :
+        print("Hasta pronto")
+
+
 def operation_1():
     try:
         generation_json = getResponse(URL_GENERATION)
@@ -65,6 +154,50 @@ def operation_1():
         show_pokemons(pokemon_species_list)
     except Exception :
         print("Surgio un errror")
+
+def operation_2():
+    clear_console()
+    try:
+        shape_json= getResponse(URL_POKEMON_SHAPE)
+        names_list=[x["name"] for x in shape_json['results']]
+
+        print_title("LISTADO DE FORMAS DE POKEMONES")
+        show_elements(names_list)
+        
+        print("Escriba una las opciones para ver pokemones disponibles y presione ENTER\n")
+        value=validate_input(names_list)
+        data_json = getResponse(f"{URL_POKEMON_SHAPE}/{value}")
+
+        clear_console()
+        print_title(f"LISTADO DE POKEMONES SEGUN FORMA: {names_list[int(value)-1]}")
+        pokemon_species_list=[x["name"] for x in data_json['pokemon_species']]
+        show_paginated(pokemon_species_list)
+
+    except Exception :
+        print("Surgio un error en el sistema.")
+    
+
+def operation_3():
+    clear_console()
+    try:
+        ability_json= getResponse(URL_ABILITY)
+        names_list=[x["name"] for x in ability_json['results']]
+
+        print_title("LISTADO DE HABILIDADES DE POKEMONES")
+        show_elements(names_list)
+
+        print("Escriba una las opciones para ver pokemones disponibles y presione ENTER\n")
+        value=validate_input(names_list)
+        data_json = getResponse(f"{URL_ABILITY}/{value}")
+
+        clear_console()
+        print_title(f"LISTADO DE POKEMONES SEGUN HABILIDAD: {names_list[int(value)-1]}")
+        pk_list=[x["pokemon"]["name"] for x in data_json['pokemon']]
+        show_paginated(pk_list)
+
+    except Exception :
+        print("Surgio un error en el sistema.")
+
 
 def show_operations():
     print("\n------------ MENU DE OPCIONES ------------")
@@ -83,9 +216,9 @@ def show_operations():
     if opcion == "1":
         operation_1()
     elif opcion == "2":
-        pass
+        operation_2()
     elif opcion == "3":
-        pass
+        operation_3()
     elif opcion == "4":
         pass
     elif opcion == "5":
@@ -97,3 +230,6 @@ def presentacion():
     print("------------ BIENVENIDO A LA APLICACIÓN DE POKEMON-API -------------")
     print("---------------------------------------------------------------------------")
     show_operations()
+
+
+run_app()
