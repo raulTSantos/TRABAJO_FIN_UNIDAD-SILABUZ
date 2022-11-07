@@ -261,9 +261,9 @@ def show_operations():
     elif opcion == "3":
         operation_3()
     elif opcion == "4":
-        pass
+        operation_4()
     elif opcion == "5":
-        pass
+        operation_5()
 
 def presentacion():
     clear_console()
