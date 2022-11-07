@@ -198,6 +198,47 @@ def operation_3():
     except Exception :
         print("Surgio un error en el sistema.")
 
+def operation_4():
+    clear_console()
+    try:
+        habitat_json= getResponse(URL_HABITAT)
+        names_list=[x["name"] for x in habitat_json['results']]
+
+        print_title("LISTADO DE HABITAD DE POKEMONES")
+        show_elements(names_list)
+
+        print("Escriba una las opciones para ver pokemones disponibles y presione ENTER\n")
+        value=validate_input(names_list)
+        data_json = getResponse(f"{URL_HABITAT}/{value}")
+
+        clear_console()
+        print_title(f"LISTADO DE POKEMONES SEGUN HABITAD: {names_list[int(value)-1]}")
+        pokemon_species_list=[x["name"] for x in data_json['pokemon_species']]
+    
+        show_paginated(pokemon_species_list)
+    except Exception :
+        print("Error de sistema.")
+
+def operation_5():
+    try:
+        clear_console()
+        pokemon_type_json= getResponse(URL_TYPE)
+        names_list=[x["name"] for x in pokemon_type_json['results']]
+
+        print_title("LISTADO DE TIPOS DE POKEMONES")
+        show_elements(names_list)
+
+        print("Escriba una las opciones para ver pokemones disponibles y presione ENTER\n")
+        value=validate_input(names_list)
+        data_json = getResponse(f"{URL_TYPE}/{names_list[value]}")
+
+        clear_console()
+        print_title(f"LISTADO DE POKEMONES SEGUN TIPO: {names_list[int(value)-1]}")
+        pk_list=[x["pokemon"]["name"] for x in data_json['pokemon']]
+        
+        show_paginated(pk_list)
+    except Exception :
+        print("Error de sistema.")
 
 def show_operations():
     print("\n------------ MENU DE OPCIONES ------------")
