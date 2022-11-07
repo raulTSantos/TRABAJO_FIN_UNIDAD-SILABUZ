@@ -108,6 +108,190 @@ def eliminar():
 
     print("\n***********************************************************************************************************")
 
+
+def buscar_libro_isbn_titulo():
+    print("\n|--------------------------------------|")
+    print("|---- BUSCAR LIBROS: ISBN O TITULO ----|")
+    print("|--------------------------------------|")
+
+    isbn_titulo = str(input("\nIngresar el ISBN o TÍTULO del libro: "))
+
+    msj = "Resultado de la busqueda" 
+    print("\n--------------------------------------")
+    print(f"{msj:^38}")
+    print("--------------------------------------")
+
+    c = 0
+    for element in data:
+        if element.isbn == isbn_titulo:
+            c += 1
+            print()
+            print(element)
+        elif element.titulo == isbn_titulo:
+            c += 1
+            print()
+            print(element)
+
+    msj = f"Se ha encontrado {c} coincidencia(s)"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+def ordenar():
+    print("\n|-------------------------------|")
+    print("|---- ORDENAR LIBRO: TITULO ----|")
+    print("|-------------------------------|")
+
+    sorted_titles=[]
+
+    for element in data:
+        sorted_titles.append(element.titulo)
+
+    sorted_titles.sort()
+
+    msj = "Resultado del ordenamiento" 
+    print("\n--------------------------------")
+    print(f"{msj:^32}")
+    print("--------------------------------")
+
+    for tittle in sorted_titles:
+        for element in data:
+            if element.titulo == tittle:
+                print()
+                print(element)
+
+    msj = f"Se ha ordenado correctamente los libros con respecto al TÍTULO"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+def buscar_libro_autor_editorial_genero():
+    print("\n|--------------------------------------------------|")
+    print("|---- BUSCAR LIBROS: AUTOR, EDITORIAL O GENERO ----|")
+    print("|--------------------------------------------------|")
+
+    autor_editorial_genero = str(input("\nIngresar el AUTOR, EDITORIAL O GENERO: "))
+    
+    msj = "Resultado de la busqueda" 
+    print("\n--------------------------------------")
+    print(f"{msj:^38}")
+    print("--------------------------------------")
+
+    c = 0
+    for element in data:
+        if autor_editorial_genero in element.autor_es:
+            c += 1
+            print()
+            print(element)
+        if element.editorial == autor_editorial_genero:
+            c += 1
+            print()
+            print(element)
+        if element.genero == autor_editorial_genero:
+            c += 1
+            print()
+            print(element)
+        
+    msj = f"Se ha encontrado {c} coincidencia(s)"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+def actualizar():
+    print("\n|--------------------------------------|")
+    print("|---- ACTUALIZAR DATOS DE UN LIBRO ----|")
+    print("|--------------------------------------|")
+
+    id_libro = str(input("\nIngresar el ID del libro para actualizar sus datos (1,2,...,n): "))
+    
+    for element in data:
+        if element.id == id_libro:
+            element.titulo      = input("Ingrese el TÍTULO del libro: ")
+            element.genero      = input("Ingrese el GÉNERO del libro: ")
+            element.isbn        = input("Ingrese el ISBN del libro: ")
+            element.editorial   = input("Ingrese la EDITORIAL del libro: ")
+            element.autor_es    = input("Ingrese autor(Si son varios,separar por comas sin espacio): ").split(",")
+
+            msj = f"Se ha actualizado correctamente los datos del libro con el ID {id_libro}"
+            print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+            print(f"{msj:^107}")
+            print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+            
+            return
+
+    msj = f"No existe ningun libro con el ID {id_libro}"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+def buscar_libro_autores():
+    print("\n|------------------------------------------|")
+    print("|---- BUSCAR LIBROS: NUMERO DE AUTORES ----|")
+    print("|------------------------------------------|")
+
+    nro_autores = int(input("\nIngresar el número de autores del libro (1,2,...,n): "))
+
+    msj = "Resultado de la busqueda" 
+    print("\n--------------------------------------")
+    print(f"{msj:^38}")
+    print("--------------------------------------")
+
+    c = 0
+    for element in data:
+        n = len(element.autor_es)
+        if n == int(nro_autores):
+            c += 1
+            print()
+            print(element)
+
+    msj = f"Se ha encontrado {c} coincidencia(s)"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    
+def save_file():
+    print("\n|-------------------------------------|")
+    print("|---- GUARDAR ARCHIVO (CSV) EN DD ----|")
+    print("|-------------------------------------|")
+
+    with open('books.csv', 'a', newline="") as file:
+        writer_object = csv.writer(file)
+        #si el archivo esta vacio,escribe cabecera
+        if os.stat('books.csv').st_size == 0:
+            writer_object.writerow(["id","titulo","genero","isbn","editorial","autor(es)"])
+        for x in data:
+            writer_object.writerow([x.id,x.titulo,x.genero, x.isbn,x.editorial,",".join(x.autor_es)])
+        
+        file.close()
+    
+    msj = "Archivo (CSV) guardado correctamente"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+def read_file():
+    print("\n|-----------------------------|")
+    print("|---- LEER UN ARCHIVO CSV ----|")
+    print("|-----------------------------|")
+    
+    msj = "Resultado de la lectura" 
+    print("\n--------------------------------------")
+    print(f"{msj:^38}")
+    print("--------------------------------------")
+
+    print()
+
+    with open('books.csv', newline='') as File:  
+        reader = csv.reader(File)
+        for row in reader:
+            print(row)
+
+    msj = "Archivo (CSV) leido correctament"
+    print("\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+    print(f"{msj:^107}")
+    print("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
+
+
 # ----------------------------
 # INTERACTUANDO CON LA CONSOLA
 # ----------------------------
@@ -152,7 +336,7 @@ while opcion != 11:
     # ---------------------------------------
 
     if opcion == 1:
-        pass
+        read_file()
     elif opcion == 2:
         listar()
     elif opcion == 3:
@@ -160,17 +344,17 @@ while opcion != 11:
     elif opcion == 4:
         eliminar()
     elif opcion == 5:
-        pass
+        buscar_libro_isbn_titulo()
     elif opcion == 6:
-        pass
+        ordenar()
     elif opcion == 7:
-        pass
+        buscar_libro_autor_editorial_genero()
     elif opcion == 8:
-        pass
+        buscar_libro_autores()
     elif opcion == 9:
-        pass
+        actualizar()
     elif opcion == 10:
-        pass
+        save_file()
     else:
         print()
         exit()
