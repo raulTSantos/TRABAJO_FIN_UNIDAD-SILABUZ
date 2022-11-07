@@ -47,7 +47,7 @@ def show_elements(lista):
 
 def show_pokemons(lista: list[str]) -> None:
     if len(lista) ==0:
-        print(f"Cantida de pokemones encontrados: 0")
+        print(f"Cantidad de pokemones encontrados: 0")
     else:
         for index,element in enumerate(lista, start=1):
             print(f"POKEMON {index}")
@@ -108,7 +108,7 @@ def show_paginated(lista):
                 print("********************************************************************************")
                 show_pokemons(pages[current_page-1])
                 print("********************************************************************************") 
-                rpt=input("Ingrese 'A' (Anteriror) o 'X' (Escapar): ").strip()      
+                rpt=input("Ingrese 'A' (Anterior) o 'X' (Escapar): ").strip()      
                 if rpt.upper() == 'A':
                     current_page -=1
                 else:
@@ -204,7 +204,7 @@ def operation_4():
         habitat_json= getResponse(URL_HABITAT)
         names_list=[x["name"] for x in habitat_json['results']]
 
-        print_title("LISTADO DE HABITAD DE POKEMONES")
+        print_title("LISTADO DE HABITAT DE POKEMONES")
         show_elements(names_list)
 
         print("Escriba una las opciones para ver pokemones disponibles y presione ENTER\n")
@@ -212,7 +212,7 @@ def operation_4():
         data_json = getResponse(f"{URL_HABITAT}/{value}")
 
         clear_console()
-        print_title(f"LISTADO DE POKEMONES SEGUN HABITAD: {names_list[int(value)-1]}")
+        print_title(f"LISTADO DE POKEMONES SEGUN HABITAT: {names_list[int(value)-1]}")
         pokemon_species_list=[x["name"] for x in data_json['pokemon_species']]
     
         show_paginated(pokemon_species_list)
